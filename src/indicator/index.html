@@ -1,0 +1,43 @@
+<html>
+<head>
+	<title>Probando plugin jQuery</title>
+	<script language="Javascript" type="text/javascript" src="jquery.js"></script>
+	<script language="Javascript" type="text/javascript" src="jquery.indicator.js"></script>
+	
+	<style type="text/css">
+	body * {font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; color: #000; font-size: 14px;}
+	a {color: #000;}
+	#container {margin-bottom: 1em;}
+	.indicator {color: #666; margin: 1em 0;}
+	.indicator img {vertical-align: middle; margin-right: .6em;}
+	</style>
+</head>
+<body>
+<div id="container">Esto contendr&aacute; el indicador</div>
+<button id="showme">Click Me!</button>
+<button id="hideme">Hide Me!</button>
+<input type="text" name="content" id="content" />
+<button id="updateme">Update</button>
+
+<script type="text/javascript" language="Javascript">
+$(document).ready(function() {
+   var $wrapped = $("#container");
+   $("#showme").click(function () {
+   		$wrapped.indicator({
+   			text	: "Actualizando datos...",
+   			image	: "indicator.gif",
+   			animate :  50
+   		});
+   		// $wrapped.indicator("show");
+   		return false;
+   });
+   $("#hideme").click(function () {
+   		$wrapped.indicator("hide");
+   });
+   $("#updateme").click(function () {
+   		$wrapped.indicator("update", $("#content").val());
+   });
+ })
+</script>
+</body>
+</html>
