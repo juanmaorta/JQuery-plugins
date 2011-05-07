@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+ <head>
+  <title>Simple plugins demo</title>
+  <style type="text/css">
+  body {font-family: Arial, Helvetica, sans-serif; background-color: #eee;}
+  /** Indicator **/
+  .indicator {font-size: 14px; margin: 1em 0;}
+  .indicator img {vertical-align: middle; margin-right: .8em;}
+  
+  /** Tabs **/
+  #tabdemo {margin: 2em 0;}
+  .tabs {list-style: none; margin: 0 .4em; padding: 0;}
+  .tabs li {display: inline; border: solid 1px #ddd; border-bottom: none; padding: .25em 1em; background-color: #ddd;}
+  .tabs li.active {background-color: #fff; border-color: #666;}
+  .tabs li a {color: black; text-decoration: none;}
+  .tab_container {border: solid 1px #666; width: 300px; height: 200px; padding: .4em; font-size: 12px; background-color: #fff;}
+  </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+  <script type="text/javascript" src="jquery.simple-plugins.min.js"></script>
+ </head>
+ <body>
+	<div id="container">This &lt;div&gt; contains the indicator</div>
+	<button id="showme">Click Me!</button>
+	<button id="hideme">Hide Me!</button>
+	<input type="text" name="content" id="content" />
+	<button id="updateme">Update</button>
+	
+	<div id="tabdemo">
+	    <ul class="tabs">
+	        <li><a href="#tab1">Tab 1</a></li>
+	        <li><a href="#tab2">Tab 2</a></li>
+	    </ul>
+	
+	    <div class="tab_container">
+	        <div id="tab1" class="tab_content">
+	            Contenido 1
+	        </div>
+	        <div id="tab2" class="tab_content">
+	            Contenido 2
+	        </div>
+	   	</div>
+	</div>
+	
+	<script type="text/javascript" language="Javascript">
+	$(document).ready(function() {
+	   // Indicator
+	   var $wrapped = $("#container");
+	   $("#showme").click(function () {
+	   		$wrapped.indicator({
+	   			text	: "Updating data ...",
+	   			image	: "img/indicator.gif",
+	   			animate :  50
+	   		});
+	   		// $wrapped.indicator("show");
+	   		return false;
+	   });
+	   $("#hideme").click(function () {
+	   		$wrapped.indicator("hide");
+	   });
+	   $("#updateme").click(function () {
+	   		$wrapped.indicator("update", $("#content").val());
+	   });
+	   
+	   // Tabs
+	   $tabs = $("#tab_container").simpletabs();
+	 })
+	</script>
+ </body>
+</html>
