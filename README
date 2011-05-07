@@ -1,0 +1,11 @@
+Some jQuery light and simple plugins
+
+- simpletabs
+- indicator
+
+The plugins are merged and compressed using Juicer (with JSLint and Yuicompressor). The output file is
+lib/jquery.simple-plugins.min.js
+
+Use this command to merge the files:
+
+juicer merge ./src/indicator/jquery.indicator.js ./src/simpletabs/jquery.simpletabs.js -f -o ./lib/jquery.simple-plugins.min.js
