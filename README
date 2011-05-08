@@ -3,10 +3,12 @@ Some jQuery light and simple plugins
 
 - simpletabs
 - indicator
+- message
 
 The plugins are merged and compressed using Juicer (with JSLint and Yuicompressor). The output file is
 lib/jquery.simple-plugins.min.js
 
 
-Adding a README description in a forked repo
+Use this command to merge the files:
 
+juicer merge ./src/indicator/jquery.indicator.js ./src/simpletabs/jquery.simpletabs.js ./src/message/jquery.message.js -f -o ./lib/jquery.simple-plugins.min.js
