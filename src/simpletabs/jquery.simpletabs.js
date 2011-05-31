@@ -31,7 +31,8 @@
             content_class:     ".tab_content",
             tab_list:        "ul.tabs",
             active_class:    "active",
-            default_active: 0
+            default_active: 0,
+            fade: false
         },
         showtab: function (tabind) {
             $($.simpletabs.defaults.tab_list + " li").removeClass($.simpletabs.defaults.active_class);
@@ -45,7 +46,11 @@
             // activa el contenido
             $($.simpletabs.defaults.content_class).each(function (index, element) {
                 if (index === tabind) {
-                    $(element).show();
+                    if ($.simpletabs.defaults.fade) {
+                        $(element).show('fast');
+                    } else {
+                        $(element).show();
+                    }
                 }
             });
             return false;
