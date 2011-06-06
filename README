@@ -11,4 +11,4 @@ lib/jquery.simple-plugins.min.js
 
 Use this command to merge the files:
 
-juicer merge ./src/indicator/jquery.indicator.js ./src/simpletabs/jquery.simpletabs.js ./src/message/jquery.message.js -f -o ./lib/jquery.simple-plugins.min.js
+juicer merge ./src/indicator/jquery.indicator.js ./src/simpletabs/jquery.simpletabs.js ./src/message/jquery.message.js ./src/overlay/jquery.overlay.js -f -o ./lib/jquery.simple-plugins.min.js
