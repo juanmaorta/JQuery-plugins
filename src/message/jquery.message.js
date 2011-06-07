@@ -42,17 +42,23 @@
         init : function (options) {
             settings = $.extend({
                 default_class:  "msg",
+                default_id   :  "myMsg",
                 text         :  "Default text",
                 closeimg     :  null,
                 closeclass   :  "closebtn",
                 animate      :  false,
-                type         :  'append',
-                autoclose    :  true
+                type         :  "append",
+                autoclose    :  true,
+                container_tag:  "div"
             }, options || {});
             return this;
         },
         show : function () {
-            container = $("<div class=\"" + settings.default_class + "\" id=\"msg\">" + settings.text + "</div>");
+            // if already exists, remove it
+            if ($("#" + settings.default_id).length !== 0) {
+                $("#" + settings.default_id).remove();
+            }
+            container = $("<" + settings.container_tag + " class=\"" + settings.default_class + "\" id=\"" + settings.default_id + "\">" + settings.text + "</" + settings.container_tag + ">");
             if (settings.closeimg !== null) {
                 $closebtn = $("<img src=\"" + settings.closeimg + "\" class=\"" + settings.closeclass + "\" />");
                 $closebtn.click(function () {
