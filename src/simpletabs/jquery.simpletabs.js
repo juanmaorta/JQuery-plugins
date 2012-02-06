@@ -1,4 +1,8 @@
 /*globals jQuery */
+/*global window */
+/*jslint browser: true*/
+/*jslint regexp: false*/
+
 
 /**
  * Ejemplo de uso
@@ -32,15 +36,22 @@
             tab_list:        "ul.tabs",
             active_class:    "active",
             default_active: 0,
-            fade: false
+            fade: false,
+            route_url: true
         },
         showtab: function (tabind) {
+            var re = new RegExp(/(.*)#(.*)/);
             $($.simpletabs.defaults.tab_list + " li").removeClass($.simpletabs.defaults.active_class);
             $($.simpletabs.defaults.content_class).hide();
             // activa el li
             $($.simpletabs.defaults.tab_list).find("a").each(function (index, element) {
                 if (index === tabind) {
                     $(element).parent().addClass("active").show();
+                    if ($.simpletabs.defaults.route_url) {
+                        if (re.test(this.href)) {
+                            window.location.hash = RegExp.$2;
+                        }
+                    }
                 }
             });
             // activa el contenido
