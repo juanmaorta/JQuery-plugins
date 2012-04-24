@@ -4,6 +4,9 @@ Some jQuery light and simple plugins
 - simpletabs
 - indicator
 - message
+- overlay: shows an overlay layer
+- protect: protects images from copying (right-button and drag n drop)
+- searchbox: manages a searchbox showing a placeholder and validating search term
 
 The plugins are merged and compressed using Juicer (with JSLint and Yuicompressor). The output file is
 lib/jquery.simple-plugins.min.js
@@ -12,3 +15,15 @@ lib/jquery.simple-plugins.min.js
 Use this command to merge the files:
 
 juicer merge ./src/indicator/jquery.indicator.js ./src/simpletabs/jquery.simpletabs.js ./src/message/jquery.message.js ./src/overlay/jquery.overlay.js -f -o ./lib/jquery.simple-plugins.min.js
+
+
+Alternative way to merge and minify files:
+
+cat ./src/indicator/jquery.indicator.js > ./lib/jquery.simple-plugins.js
+cat ./src/simpletabs/jquery.simpletabs.js >> ./lib/jquery.simple-plugins.js
+cat ./src/message/jquery.message.js >> ./lib/jquery.simple-plugins.js
+cat ./src/overlay/jquery.overlay.js >> ./lib/jquery.simple-plugins.js
+cat ./src/protect/jquery.protect.js >> ./lib/jquery.simple-plugins.js
+cat ./src/searchbox/jquery.searchbox.js >> ./lib/jquery.simple-plugins.js
+
+uglifyjs -o ./lib/jquery.simple-plugins.min.js ./lib/jquery.simple-plugins.js
