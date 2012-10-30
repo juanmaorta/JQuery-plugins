@@ -1,78 +1,70 @@
-(function($) {
-var settings;
-	
-	var methods = {
-		init : function (options) {
-			settings = $.extend({
-				msg: "",
-				mask: false,
-				block_right_click: true,
-				mask_classname: 'bgtransparent',
-				mask_id: 'protectPhoto',
-				keep_click: true
-			}, options ||{});
-			return this;	
-		},
-		show : function () {
-			var $wrapped = this;
-			if (settings.block_right_click && !settings.mask) {
-				this.bind("contextmenu", function () {
-					if (settings.msg != '') {
-						alert(settings.msg);
-					}
-					return false;
-				});
-			}
-			if (settings.mask) {
-				// Create a mask over the image
-				var $protect = $('<div>').attr({
-				   	className: settings.mask_classname,
-				    id: settings.mask_id
-				});
-				$('body').append($protect);
-				$protect.css("width", this.width());
-				$protect.css("height", this.height());
-				$protect.css("position", "absolute");
-				var foto_pos = this.position();
-				$protect.css("left", foto_pos.left);
-				$protect.css("top", parseInt(foto_pos.top) + 20);
-				
-				if (settings.block_right_click) {
-					$protect.bind("contextmenu", function () {
-						if (settings.msg != '') {
-							alert(settings.msg);
-						}
-						return false;
-					});
-				}
-				if (settings.keep_click) {
-					// Transfers the HREF of a parent A > IMG
-					// to the click event of the mask
-					var link = $wrapped.parent();
-					var href = link.attr("href");
-					if (href != '') {
-						link.click(function () {return false})
-							.css("cursor","default");
-						$protect.click(function () {
-							window.location = href;
-						});
-					}
-				}
-			}
-		}
-	}
-	
-	$.fn.protect = function (method) {
-		// Method calling logic
-	    if ( methods[method] ) {
-	      return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-	    } else if ( typeof method === 'object' || ! method ) {
-	      // Assumes init as the default, and returns show
-	      methods.init.apply( this, arguments );
-	      return methods.show.apply( this, arguments );
-	    } else {
-	      $.error( 'Method ' +  method + ' does not exist on jQuery.protect' );
-	    }
-		return this;
-	}
-})(jQuery);
+(function() {
+  var $;
+
+  $ = jQuery;
+
+  $.fn.extend({
+    protect: function(options) {
+      var opts, self;
+      self = $.fn.protect;
+      opts = $.extend({}, self.default_options, options);
+      return $(this).each(function(i, el) {
+        return self.init(el, opts);
+      });
+    }
+  });
+
+  $.extend($.fn.protect, {
+    default_options: {
+      msg: "",
+      mask: true,
+      block_right_click: true,
+      mask_classname: 'bgtransparent',
+      mask_id: 'protectPhoto',
+      keep_click: true,
+      debug: false
+    },
+    init: function(el, opts) {
+      this.show(el, opts);
+    },
+    show: function(el, opts) {
+      var $protect, click_target, href, target;
+      target = $(el);
+      if (opts.mask) {
+        $protect = $('<div>').attr({
+          className: opts.mask_classname,
+          id: opts.mask_id
+        });
+        $('body').append($protect);
+        $protect.css("width", target.width()).css("height", target.height()).css("position", "absolute").css("left", target.position().left).css("top", parseInt(target.position().top, 10));
+        if (opts.debug) $protect.css("border", "solid 1px #000");
+      }
+      if (opts.block_right_click) {
+        if (opts.mask) {
+          click_target = $protect;
+        } else {
+          click_target = target;
+        }
+        click_target.bind("contextmenu", function(e) {
+          e.preventDefault();
+          if (opts.msg !== "") alert(opts.msg);
+          return false;
+        });
+      }
+      if (opts.keep_click && opts.mask) {
+        if (opts.debug) console.log("keeps click!");
+        href = target.parent().attr("href");
+        if (href !== "undefined" && href !== null && href !== "") {
+          target.parent().bind("click", function(e) {
+            e.preventDefault();
+            return false;
+          }).css("cursor", "default");
+          $protect.bind("click", function(e) {
+            return window.location = href;
+          }).css("cursor", "pointer");
+        }
+      }
+    }
+  });
+
+}).call(this);

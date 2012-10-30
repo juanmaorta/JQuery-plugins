@@ -43,6 +43,11 @@
 	        </div>
 	   	</div>
 	</div>
+
+	<div>
+		<p>This is a right-click and drap n' drop protected image</p>
+		<a href="http://www.yahoo.com"><img src="./img/image.jpg" title="Try dragging or right-clicking me!" class="protected"/></a>
+	</div>
 	
 	<script type="text/javascript" language="Javascript">
 	$(document).ready(function() {
@@ -66,6 +71,9 @@
 	   
 	   // Tabs
 	   $tabs = $("#tab_container").simpletabs();
+
+	   // Image protection
+	   $(".protected").protect({"msg": "I'm protected!"});
 	 })
 	</script>
  </body>
