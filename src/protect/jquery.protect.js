@@ -54,7 +54,8 @@
       if (opts.keep_click && opts.mask) {
         if (opts.debug) console.log("keeps click!");
         href = target.parent().attr("href");
-        if (href !== "undefined" && href !== null && href !== "") {
+        if (href !== void 0 && href !== null && href !== "") {
+          if (opts.debug) console.log(href);
           target.parent().bind("click", function(e) {
             e.preventDefault();
             return false;

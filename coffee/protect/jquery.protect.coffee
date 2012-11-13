@@ -61,7 +61,10 @@ $.extend $.fn.protect,
         console.log "keeps click!"
 
       href = target.parent().attr("href")
-      if href isnt "undefined" and href isnt null and href isnt ""
+      if href isnt undefined and href isnt null and href isnt ""
+        if opts.debug
+          console.log href
+
         target.parent().bind "click", (e) ->
           e.preventDefault()
           return false
